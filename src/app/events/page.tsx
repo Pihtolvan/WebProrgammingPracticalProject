@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
 import { createEvent } from '../../actions/events';
 import Link from 'next/link';
+import { deleteEvent } from '../../actions/events';
 
 // fetch user event by id
 async function getUserEvents() {
@@ -81,8 +82,18 @@ export default async function EventsPage() {
                       )}
                     </div>
                     <div className="flex gap-2">
-                      <button className="text-sm text-gray-500 hover:text-blue-600 border px-3 py-1 rounded">Edit</button>
-                      <button className="text-sm text-gray-500 hover:text-red-600 border px-3 py-1 rounded">Delete</button>
+                      <Link 
+                        href={`/events/${event.id}/edit`} 
+                        className="text-sm text-gray-500 hover:text-blue-600 border px-3 py-1 rounded">
+                        Edit
+                      </Link>
+                      <form action={deleteEvent.bind(null, event.id)}>
+                        <button 
+                          type="submit" 
+                          className="text-sm text-gray-500 hover:text-red-600 border px-3 py-1 rounded">
+                          Delete
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </div>
