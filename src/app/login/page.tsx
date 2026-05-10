@@ -25,7 +25,6 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
         
-        {/* If there is an error, show this red box (Fulfills assignment requirement!) */}
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 border border-red-400 rounded">
             {error}

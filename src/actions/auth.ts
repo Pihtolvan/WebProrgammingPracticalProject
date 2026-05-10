@@ -38,7 +38,7 @@ export async function loginUser(formData: FormData) {
   if (!email || !password) {
     return { success: false, error: 'Email and password are required' };
   }
-  
+
   const user = await prisma.user.findUnique({
     where: { email },
   });
@@ -55,7 +55,7 @@ export async function loginUser(formData: FormData) {
 
   // Create token
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  const token = await new SignJWT({ userId: user.id, email: user.email })
+  const token = await new SignJWT({ userId: user.id, email: user.email, name: user.name })
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('1d')
     .sign(secret);
@@ -69,4 +69,10 @@ export async function loginUser(formData: FormData) {
     path: '/',
   });
   return { success: true, error: null };
+}
+
+export async function logoutUser() {
+  const cookieStore = await cookies();
+  cookieStore.delete('session');
+  redirect('/login'); 
 }
