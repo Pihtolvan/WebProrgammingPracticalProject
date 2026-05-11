@@ -81,19 +81,12 @@ export default async function EventsPage() {
                         <p className="text-gray-700 mt-3">{event.description}</p>
                       )}
                     </div>
-                    <div className="flex gap-2">
+                    <div className="mt-4 pt-4 border-t">
                       <Link 
-                        href={`/events/${event.id}/edit`} 
-                        className="text-sm text-gray-500 hover:text-blue-600 border px-3 py-1 rounded">
-                        Edit
+                        href={`/events/${event.id}`} 
+                        className="text-blue-600 hover:underline font-medium">
+                        View Details →
                       </Link>
-                      <form action={deleteEvent.bind(null, event.id)}>
-                        <button 
-                          type="submit" 
-                          className="text-sm text-gray-500 hover:text-red-600 border px-3 py-1 rounded">
-                          Delete
-                        </button>
-                      </form>
                     </div>
                   </div>
                 </div>
