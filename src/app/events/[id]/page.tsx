@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import DeleteButton from '@/components/DeleteButton';
 import { deleteEvent } from '../../../actions/events';
 
 
@@ -58,13 +59,9 @@ export default async function EventDetailsPage({ params }: { params: Promise<{ i
             className="flex-1 text-center bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 px-6 py-3.5 rounded-xl font-medium transition-all duration-200">
             Edit Event
           </Link>
-          <form action={deleteEvent.bind(null, event.id)} className="flex-1 flex">
-            <button 
-              type="submit" 
-              className="w-full bg-white text-red-600 hover:bg-red-50 hover:text-red-700 border border-red-200 px-6 py-3.5 rounded-xl font-medium transition-all duration-200">
-              Delete Event
-            </button>
-          </form>
+          <div className="flex-1 flex">
+            <DeleteButton eventId={event.id} />
+          </div>
         </div>
       </div>
     </div>
