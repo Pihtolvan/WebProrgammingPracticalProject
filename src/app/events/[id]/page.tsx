@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { deleteEvent } from '../../../actions/events';
 
 
-// same one as one iside edit folder, but as we have to have "Details" page this one just spreads functions 
+// same one as one iside edit folder, but as we have to have "Details" page this one just spreads functions     
 export default async function EventDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   // user identification + await id
   const resolvedParams = await params;
@@ -29,33 +29,39 @@ export default async function EventDetailsPage({ params }: { params: Promise<{ i
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 text-black p-8">
-      <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
-        <Link href="/events" className="text-blue-600 hover:underline mb-6 inline-block">← Back to List</Link>
+    <div className="min-h-screen bg-slate-50 text-slate-900 p-4 md:p-8 flex flex-col items-center">
+
+      <div className="max-w-3xl w-full bg-white p-8 md:p-12 border border-purple-100/50 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] mt-4 md:mt-10">
+        <Link 
+          href="/events" 
+          className="inline-flex items-center text-purple-600 font-medium hover:text-purple-800 hover:-translate-x-1 transition-all duration-200 mb-8">
+          ← Back to Events
+        </Link>
         
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">{event.title}</h1>
-        <div className="text-gray-600 mb-6 flex flex-col gap-1">
-          <span className="font-semibold text-blue-600">📅 {new Date(event.date).toLocaleString()}</span>
-          <span>📍 {event.location}</span>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">{event.title}</h1>
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <span className="inline-flex items-center px-4 py-2 rounded-xl bg-purple-50 text-purple-700 font-semibold border border-purple-100">
+            📅 {new Date(event.date).toLocaleString([], { dateStyle: 'full', timeStyle: 'short' })}
+          </span>
+          <span className="inline-flex items-center px-4 py-2 rounded-xl bg-slate-50 text-slate-700 font-medium border border-slate-200">
+            📍 {event.location}
+          </span>
+        </div>
+        <div className="mt-8 pt-8 border-t border-slate-100">
+          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">About this event</h3>
+          <p className="text-lg text-slate-600 leading-relaxed whitespace-pre-wrap">{event.description || 'No description provided for this event.'}</p>
         </div>
 
-        <div className="prose max-w-none mb-8 text-gray-800 border-t pt-6">
-          <h3 className="text-lg font-semibold mb-2">Description</h3>
-          <p>{event.description || 'No description provided.'}</p>
-        </div>
-        <div className="flex gap-4 border-t pt-6">
+        <div className="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-slate-100">
           <Link 
             href={`/events/${event.id}/edit`} 
-            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
-          >
+            className="flex-1 text-center bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 px-6 py-3.5 rounded-xl font-medium transition-all duration-200">
             Edit Event
           </Link>
-
-          <form action={deleteEvent.bind(null, event.id)}>
+          <form action={deleteEvent.bind(null, event.id)} className="flex-1 flex">
             <button 
               type="submit" 
-              className="bg-red-100 text-red-700 px-4 py-2 rounded hover:bg-red-200 transition"
-            >
+              className="w-full bg-white text-red-600 hover:bg-red-50 hover:text-red-700 border border-red-200 px-6 py-3.5 rounded-xl font-medium transition-all duration-200">
               Delete Event
             </button>
           </form>
