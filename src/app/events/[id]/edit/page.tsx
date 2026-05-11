@@ -26,7 +26,12 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
     redirect('/events');
   }
 
-  const formattedDate = event.date.toISOString().slice(0, 16);
+  // Local time adapt
+  const offset = event.date.getTimezoneOffset() * 60000;
+  const localDate = new Date(event.date.getTime() - offset);
+  const formattedDate = localDate.toISOString().slice(0, 16);
+
+  
   const updateEventWithId = updateEvent.bind(null, event.id);
 
   return (
